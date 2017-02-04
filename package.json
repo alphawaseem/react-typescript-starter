@@ -4,7 +4,14 @@
   "description": "\"React with typescript\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run clean && npm webpack && concurrently \"npm run webpack:w\" \"npm run rest\"",
+    "postinstall": "npm run typings",
+    "typings":"typings install",
+    "clean" : "rimraf dist",
+    "web" : "wepack-dev-server",
+    "rest" : "json-server --watch --port 3010 db.json",
+    "webpack:w":"wepback --watch",
+    "webpack":"webpack"
   },
   "keywords": [
     "react",
