@@ -4,14 +4,15 @@
   "description": "\"React with typescript\"",
   "main": "index.js",
   "scripts": {
-    "start": "npm run clean && npm run webpack && concurrently \"npm run webpack:w\" \"npm run rest\"",
+    "start": "npm run clean && npm run webpack && concurrently \"npm run serve\" \"npm run rest\"",
     "postinstall": "npm run typings",
     "typings":"typings install",
     "clean" : "rimraf dist",
     "web" : "wepack-dev-server",
-    "rest" : "json-server --watch --port 3010 db.json",
-    "webpack:w":"wepback --watch",
-    "webpack":"webpack"
+    "rest" : "json-server --watch --port 3020 db.json",
+    "webpack:w":"webpack --watch",
+    "webpack":"webpack",
+    "serve" : "webpack-dev-server"
   },
   "keywords": [
     "react",

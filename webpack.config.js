@@ -2,10 +2,10 @@
 const path = require('path');
 
 // plugins covered below
-const { ProvidePlugin } = require('webpack');
+const { ProvidePlugin,LoaderOptionsPlugin } = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const autoprefixer = require('autoprefixer');
 // configure source and distribution folder paths
 const srcFolder = 'src';
 const distFolder = 'dist';
@@ -26,10 +26,10 @@ module.exports = {
     // import from path
     resolve: {
         // order matters, resolves left to right
-        extensions: ['', '.js', '.ts', '.tsx', '.json'],
+        extensions: [ '.js', '.ts', '.tsx', '.json'],
         // root is an absolute path to the folder containing our application 
         // modules
-        root: path.join(__dirname, srcFolder, 'ts')
+        modules: [path.resolve(__dirname, "src","ts"), "node_modules"]
     },
 
     module: {
@@ -38,13 +38,13 @@ module.exports = {
             // preprocessor
             { test: /\.tsx?$/,loader: 'ts-loader' },
             // processes JSON files, useful for config files and mock data
-            { test: /\.json$/, loader: 'json' },
+            { test: /\.json$/, loader: 'json-loader' },
             // transpiles global SCSS stylesheets
             // loader order is executed right to left
             {
                 test: /\.scss$/,
                 exclude: [path.join(__dirname, srcFolder, 'ts')],
-                loaders: ['style', 'css', 'postcss', 'sass']
+                loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
             },
             // process Bootstrap SCSS files
             {
@@ -55,11 +55,7 @@ module.exports = {
         ]
     },
 
-    // configuration for the postcss loader which modifies CSS after
-    // processing
-    // autoprefixer plugin for postcss adds vendor specific prefixing for
-    // non-standard or experimental css properties
-    postcss: [ require('autoprefixer') ],
+   
 
     plugins: [
         // provides Promise and fetch API for browsers which do not support
@@ -79,6 +75,18 @@ module.exports = {
             template: path.join(__dirname, srcFolder, 'index.html'),
             filename:  path.join('..', 'index.html'),
             inject: 'body',
+        }),
+         // configuration for the postcss loader which modifies CSS after
+    // processing
+    // autoprefixer plugin for postcss adds vendor specific prefixing for
+    // non-standard or experimental css properties
+        new LoaderOptionsPlugin({
+            options: {
+                context: __dirname,
+                postcss: [
+                autoprefixer
+                ]
+            }
         })
     ],
 
@@ -110,7 +118,7 @@ module.exports = {
         proxy: {
             '/widgets': {
                 // server to proxy
-                target: 'http://0.0.0.0:3010'
+                target: 'http://0.0.0.0:3020'
             }
         }
     }
