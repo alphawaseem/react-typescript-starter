@@ -4,7 +4,7 @@
   "description": "\"React with typescript\"",
   "main": "index.js",
   "scripts": {
-    "start": "npm run clean && npm webpack && concurrently \"npm run webpack:w\" \"npm run rest\"",
+    "start": "npm run clean && npm run webpack && concurrently \"npm run webpack:w\" \"npm run rest\"",
     "postinstall": "npm run typings",
     "typings":"typings install",
     "clean" : "rimraf dist",
