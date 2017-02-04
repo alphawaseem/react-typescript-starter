@@ -1,0 +1,27 @@
+{
+    "compileOnSave": false,
+    "buildOnSave" : false,
+    
+	"compilerOptions": {
+		"target": "es6", // output version
+		"module": "commonjs", // works with system, and other module systems
+		"moduleResolution": "node", // newer mechanism for finding modules, do not use classic
+		"sourceMap": true, // output source maps
+		"experimentalDecorators": true, // enable es7 decorators
+		"emitDecoratorMetadata": true, // output design time metadata for decorated declarations
+		"removeComments": false, // do not remove comments
+		"noImplicitAny": false, // raise errors for implicit any,
+        "noEmitHelpers": false,
+        "inlineSourceMap": false,
+        "suppressImplicitAnyIndexErrors": false,
+		"jsx": "react" // enable JSX support for React
+	},
+    "exclude": [
+        "node_modules"
+    ],
+    "filesGlob": [
+        "./src/ts/**/*.ts",
+        "./typings/index.d.ts",
+        "!./node_modules/**"
+    ]
+}
